@@ -53,12 +53,18 @@
             weatherLabel = new Label();
             locationLabel = new Label();
             weathertableLayoutPanel = new TableLayoutPanel();
-            airTemperatureLabel = new Label();
+            pressureValueLabel = new Label();
+            pressureLabel = new Label();
+            humidityLabel = new Label();
+            humidityValueLabel = new Label();
+            temperatureLabel = new Label();
             temperatureValueLabel = new Label();
             conditionsLabel = new Label();
             conditionsValueLabel = new Label();
-            windLabel = new Label();
-            windValueLabel = new Label();
+            windSpeedLabel = new Label();
+            windSpeedValueLabel = new Label();
+            windDirectionLabel = new Label();
+            windDirectionValueLabel = new Label();
             mapPanel = new Panel();
             rightSideBar.SuspendLayout();
             buttonPanel.SuspendLayout();
@@ -104,7 +110,7 @@
             savedLocationsButton.Location = new Point(0, 105);
             savedLocationsButton.Name = "savedLocationsButton";
             savedLocationsButton.Size = new Size(257, 41);
-            savedLocationsButton.TabIndex = 4;
+            savedLocationsButton.TabIndex = 0;
             savedLocationsButton.Text = "Saved &Locations";
             savedLocationsButton.UseVisualStyleBackColor = false;
             savedLocationsButton.Click += savedLocationsButton_Click;
@@ -126,7 +132,7 @@
             searchTextBox.Location = new Point(10, 17);
             searchTextBox.Name = "searchTextBox";
             searchTextBox.Size = new Size(237, 29);
-            searchTextBox.TabIndex = 1;
+            searchTextBox.TabIndex = 0;
             // 
             // searchButton
             // 
@@ -136,7 +142,7 @@
             searchButton.Location = new Point(118, 52);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(129, 36);
-            searchButton.TabIndex = 2;
+            searchButton.TabIndex = 1;
             searchButton.Text = "S&earch";
             searchButton.UseVisualStyleBackColor = false;
             searchButton.Click += searchButton_Click;
@@ -152,7 +158,7 @@
             settingsButton.Location = new Point(0, 819);
             settingsButton.Name = "settingsButton";
             settingsButton.Size = new Size(257, 41);
-            settingsButton.TabIndex = 3;
+            settingsButton.TabIndex = 1;
             settingsButton.Text = "Se&ttings";
             settingsButton.UseVisualStyleBackColor = false;
             settingsButton.Click += settingsButton_Click;
@@ -225,7 +231,7 @@
             saveNotesButton.Location = new Point(138, 253);
             saveNotesButton.Name = "saveNotesButton";
             saveNotesButton.Size = new Size(129, 36);
-            saveNotesButton.TabIndex = 7;
+            saveNotesButton.TabIndex = 0;
             saveNotesButton.Text = "&Save Notes";
             saveNotesButton.UseVisualStyleBackColor = false;
             saveNotesButton.Click += saveNotesButton_Click;
@@ -234,6 +240,7 @@
             // 
             fishingReportTextBox.BackColor = Color.White;
             fishingReportTextBox.BorderStyle = BorderStyle.FixedSingle;
+            fishingReportTextBox.Enabled = false;
             fishingReportTextBox.Location = new Point(20, 385);
             fishingReportTextBox.Multiline = true;
             fishingReportTextBox.Name = "fishingReportTextBox";
@@ -255,7 +262,7 @@
             // 
             waterConditionsLabel.AutoSize = true;
             waterConditionsLabel.Font = new Font("Segoe UI Light", 18F);
-            waterConditionsLabel.Location = new Point(14, 216);
+            waterConditionsLabel.Location = new Point(19, 252);
             waterConditionsLabel.Name = "waterConditionsLabel";
             waterConditionsLabel.Size = new Size(186, 32);
             waterConditionsLabel.TabIndex = 4;
@@ -270,7 +277,7 @@
             waterConditionsTableLayoutPanel.Controls.Add(waterTemperatureValueLabel, 1, 0);
             waterConditionsTableLayoutPanel.Controls.Add(clarityLabel, 0, 1);
             waterConditionsTableLayoutPanel.Controls.Add(clarityValueLabel, 1, 1);
-            waterConditionsTableLayoutPanel.Location = new Point(14, 251);
+            waterConditionsTableLayoutPanel.Location = new Point(19, 287);
             waterConditionsTableLayoutPanel.Name = "waterConditionsTableLayoutPanel";
             waterConditionsTableLayoutPanel.RowCount = 3;
             waterConditionsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
@@ -293,9 +300,9 @@
             waterTemperatureValueLabel.AutoSize = true;
             waterTemperatureValueLabel.Location = new Point(109, 0);
             waterTemperatureValueLabel.Name = "waterTemperatureValueLabel";
-            waterTemperatureValueLabel.Size = new Size(109, 21);
+            waterTemperatureValueLabel.Size = new Size(118, 21);
             waterTemperatureValueLabel.TabIndex = 1;
-            waterTemperatureValueLabel.Text = "<temp value>";
+            waterTemperatureValueLabel.Text = "<temperature>";
             // 
             // clarityLabel
             // 
@@ -327,52 +334,98 @@
             // 
             // locationLabel
             // 
-            locationLabel.AutoSize = true;
+            locationLabel.Dock = DockStyle.Top;
             locationLabel.Font = new Font("Segoe UI Light", 22F);
-            locationLabel.Location = new Point(61, 11);
+            locationLabel.Location = new Point(0, 0);
             locationLabel.Name = "locationLabel";
-            locationLabel.Size = new Size(155, 41);
+            locationLabel.Size = new Size(296, 50);
             locationLabel.TabIndex = 2;
             locationLabel.Text = "<location>";
+            locationLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // weathertableLayoutPanel
             // 
             weathertableLayoutPanel.ColumnCount = 2;
             weathertableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
             weathertableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            weathertableLayoutPanel.Controls.Add(airTemperatureLabel, 0, 0);
+            weathertableLayoutPanel.Controls.Add(pressureValueLabel, 1, 5);
+            weathertableLayoutPanel.Controls.Add(pressureLabel, 0, 5);
+            weathertableLayoutPanel.Controls.Add(humidityLabel, 0, 4);
+            weathertableLayoutPanel.Controls.Add(humidityValueLabel, 0, 4);
+            weathertableLayoutPanel.Controls.Add(temperatureLabel, 0, 0);
             weathertableLayoutPanel.Controls.Add(temperatureValueLabel, 1, 0);
             weathertableLayoutPanel.Controls.Add(conditionsLabel, 0, 1);
             weathertableLayoutPanel.Controls.Add(conditionsValueLabel, 1, 1);
-            weathertableLayoutPanel.Controls.Add(windLabel, 0, 2);
-            weathertableLayoutPanel.Controls.Add(windValueLabel, 1, 2);
+            weathertableLayoutPanel.Controls.Add(windSpeedLabel, 0, 2);
+            weathertableLayoutPanel.Controls.Add(windSpeedValueLabel, 1, 2);
+            weathertableLayoutPanel.Controls.Add(windDirectionLabel, 0, 3);
+            weathertableLayoutPanel.Controls.Add(windDirectionValueLabel, 1, 3);
             weathertableLayoutPanel.Location = new Point(14, 102);
             weathertableLayoutPanel.Name = "weathertableLayoutPanel";
-            weathertableLayoutPanel.RowCount = 3;
+            weathertableLayoutPanel.RowCount = 6;
             weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
             weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
             weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
             weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            weathertableLayoutPanel.Size = new Size(265, 66);
+            weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            weathertableLayoutPanel.Size = new Size(265, 128);
             weathertableLayoutPanel.TabIndex = 1;
             // 
-            // airTemperatureLabel
+            // pressureValueLabel
             // 
-            airTemperatureLabel.AutoSize = true;
-            airTemperatureLabel.Location = new Point(3, 0);
-            airTemperatureLabel.Name = "airTemperatureLabel";
-            airTemperatureLabel.Size = new Size(100, 21);
-            airTemperatureLabel.TabIndex = 0;
-            airTemperatureLabel.Text = "Temperature:";
+            pressureValueLabel.AutoSize = true;
+            pressureValueLabel.Location = new Point(126, 106);
+            pressureValueLabel.Name = "pressureValueLabel";
+            pressureValueLabel.Size = new Size(92, 21);
+            pressureValueLabel.TabIndex = 11;
+            pressureValueLabel.Text = "<pressure>";
+            // 
+            // pressureLabel
+            // 
+            pressureLabel.AutoSize = true;
+            pressureLabel.Location = new Point(3, 106);
+            pressureLabel.Name = "pressureLabel";
+            pressureLabel.Size = new Size(73, 21);
+            pressureLabel.TabIndex = 10;
+            pressureLabel.Text = "Pressure:";
+            // 
+            // humidityLabel
+            // 
+            humidityLabel.AutoSize = true;
+            humidityLabel.Location = new Point(3, 86);
+            humidityLabel.Name = "humidityLabel";
+            humidityLabel.Size = new Size(77, 20);
+            humidityLabel.TabIndex = 9;
+            humidityLabel.Text = "Humidity:";
+            // 
+            // humidityValueLabel
+            // 
+            humidityValueLabel.AutoSize = true;
+            humidityValueLabel.Location = new Point(126, 86);
+            humidityValueLabel.Name = "humidityValueLabel";
+            humidityValueLabel.Size = new Size(94, 20);
+            humidityValueLabel.TabIndex = 8;
+            humidityValueLabel.Text = "<humidity>";
+            // 
+            // temperatureLabel
+            // 
+            temperatureLabel.AutoSize = true;
+            temperatureLabel.Location = new Point(3, 0);
+            temperatureLabel.Name = "temperatureLabel";
+            temperatureLabel.Size = new Size(100, 21);
+            temperatureLabel.TabIndex = 0;
+            temperatureLabel.Text = "Temperature:";
             // 
             // temperatureValueLabel
             // 
             temperatureValueLabel.AutoSize = true;
-            temperatureValueLabel.Location = new Point(109, 0);
+            temperatureValueLabel.Location = new Point(126, 0);
             temperatureValueLabel.Name = "temperatureValueLabel";
-            temperatureValueLabel.Size = new Size(109, 21);
+            temperatureValueLabel.Size = new Size(118, 21);
             temperatureValueLabel.TabIndex = 1;
-            temperatureValueLabel.Text = "<temp value>";
+            temperatureValueLabel.Text = "<temperature>";
             // 
             // conditionsLabel
             // 
@@ -386,29 +439,47 @@
             // conditionsValueLabel
             // 
             conditionsValueLabel.AutoSize = true;
-            conditionsValueLabel.Location = new Point(109, 22);
+            conditionsValueLabel.Location = new Point(126, 22);
             conditionsValueLabel.Name = "conditionsValueLabel";
             conditionsValueLabel.Size = new Size(104, 21);
             conditionsValueLabel.TabIndex = 3;
             conditionsValueLabel.Text = "<conditions>";
             // 
-            // windLabel
+            // windSpeedLabel
             // 
-            windLabel.AutoSize = true;
-            windLabel.Location = new Point(3, 44);
-            windLabel.Name = "windLabel";
-            windLabel.Size = new Size(50, 21);
-            windLabel.TabIndex = 4;
-            windLabel.Text = "Wind:";
+            windSpeedLabel.AutoSize = true;
+            windSpeedLabel.Location = new Point(3, 44);
+            windSpeedLabel.Name = "windSpeedLabel";
+            windSpeedLabel.Size = new Size(97, 21);
+            windSpeedLabel.TabIndex = 4;
+            windSpeedLabel.Text = "Wind Speed:";
             // 
-            // windValueLabel
+            // windSpeedValueLabel
             // 
-            windValueLabel.AutoSize = true;
-            windValueLabel.Location = new Point(109, 44);
-            windValueLabel.Name = "windValueLabel";
-            windValueLabel.Size = new Size(66, 21);
-            windValueLabel.TabIndex = 5;
-            windValueLabel.Text = "<wind>";
+            windSpeedValueLabel.AutoSize = true;
+            windSpeedValueLabel.Location = new Point(126, 44);
+            windSpeedValueLabel.Name = "windSpeedValueLabel";
+            windSpeedValueLabel.Size = new Size(111, 21);
+            windSpeedValueLabel.TabIndex = 5;
+            windSpeedValueLabel.Text = "<wind speed>";
+            // 
+            // windDirectionLabel
+            // 
+            windDirectionLabel.AutoSize = true;
+            windDirectionLabel.Location = new Point(3, 66);
+            windDirectionLabel.Name = "windDirectionLabel";
+            windDirectionLabel.Size = new Size(117, 20);
+            windDirectionLabel.TabIndex = 6;
+            windDirectionLabel.Text = "Wind Direction:";
+            // 
+            // windDirectionValueLabel
+            // 
+            windDirectionValueLabel.AutoSize = true;
+            windDirectionValueLabel.Location = new Point(126, 66);
+            windDirectionValueLabel.Name = "windDirectionValueLabel";
+            windDirectionValueLabel.Size = new Size(131, 20);
+            windDirectionValueLabel.TabIndex = 7;
+            windDirectionValueLabel.Text = "<wind direction>";
             // 
             // mapPanel
             // 
@@ -420,7 +491,7 @@
             // 
             // DashboardForm
             // 
-            AcceptButton = saveNotesButton;
+            AcceptButton = searchButton;
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
@@ -436,6 +507,7 @@
             Name = "DashboardForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Reel Conditions";
+            Load += DashboardForm_Load;
             rightSideBar.ResumeLayout(false);
             buttonPanel.ResumeLayout(false);
             searchPanel.ResumeLayout(false);
@@ -463,18 +535,18 @@
         private Button savedLocationsButton;
         private Panel leftSidebarPanel;
         private TableLayoutPanel weathertableLayoutPanel;
-        private Label airTemperatureLabel;
+        private Label temperatureLabel;
         private Label waterConditionsLabel;
         private Label weatherLabel;
         private Label locationLabel;
-        private Label windLabel;
+        private Label windSpeedLabel;
         private Label conditionsLabel;
         private TableLayoutPanel waterConditionsTableLayoutPanel;
         private Label clarityValueLabel;
         private Label waterTemperatureValueLabel;
         private Label waterTemperatureLabel;
         private Label clarityLabel;
-        private Label windValueLabel;
+        private Label windSpeedValueLabel;
         private Label conditionsValueLabel;
         private Label temperatureValueLabel;
         private TextBox notesTextBox;
@@ -485,5 +557,11 @@
         private TextBox fishingReportTextBox;
         private Panel notesPanel;
         private Panel searchPanel;
+        private Label windDirectionLabel;
+        private Label humidityLabel;
+        private Label humidityValueLabel;
+        private Label windDirectionValueLabel;
+        private Label pressureValueLabel;
+        private Label pressureLabel;
     }
 }
