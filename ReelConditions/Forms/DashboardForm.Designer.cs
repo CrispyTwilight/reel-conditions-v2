@@ -66,6 +66,7 @@
             windDirectionLabel = new Label();
             windDirectionValueLabel = new Label();
             mapPanel = new Panel();
+            gmapControl = new GMap.NET.WindowsForms.GMapControl();
             rightSideBar.SuspendLayout();
             buttonPanel.SuspendLayout();
             searchPanel.SuspendLayout();
@@ -74,6 +75,7 @@
             notesPanel.SuspendLayout();
             waterConditionsTableLayoutPanel.SuspendLayout();
             weathertableLayoutPanel.SuspendLayout();
+            mapPanel.SuspendLayout();
             SuspendLayout();
             // 
             // rightSideBar
@@ -483,11 +485,38 @@
             // 
             // mapPanel
             // 
+            mapPanel.Controls.Add(gmapControl);
             mapPanel.Dock = DockStyle.Fill;
             mapPanel.Location = new Point(257, 0);
             mapPanel.Name = "mapPanel";
             mapPanel.Size = new Size(1251, 985);
             mapPanel.TabIndex = 2;
+            // 
+            // gmapControl
+            // 
+            gmapControl.Bearing = 0F;
+            gmapControl.CanDragMap = true;
+            gmapControl.EmptyTileColor = Color.Navy;
+            gmapControl.GrayScaleMode = false;
+            gmapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            gmapControl.LevelsKeepInMemory = 5;
+            gmapControl.Location = new Point(0, 1);
+            gmapControl.MarkersEnabled = true;
+            gmapControl.MaxZoom = 2;
+            gmapControl.MinZoom = 2;
+            gmapControl.MouseWheelZoomEnabled = true;
+            gmapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            gmapControl.Name = "gmapControl";
+            gmapControl.NegativeMode = false;
+            gmapControl.PolygonsEnabled = true;
+            gmapControl.RetryLoadTile = 0;
+            gmapControl.RoutesEnabled = true;
+            gmapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            gmapControl.SelectedAreaFillColor = Color.FromArgb(33, 65, 105, 225);
+            gmapControl.ShowTileGridLines = false;
+            gmapControl.Size = new Size(1251, 984);
+            gmapControl.TabIndex = 0;
+            gmapControl.Zoom = 0D;
             // 
             // DashboardForm
             // 
@@ -521,6 +550,7 @@
             waterConditionsTableLayoutPanel.PerformLayout();
             weathertableLayoutPanel.ResumeLayout(false);
             weathertableLayoutPanel.PerformLayout();
+            mapPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -563,5 +593,6 @@
         private Label windDirectionValueLabel;
         private Label pressureValueLabel;
         private Label pressureLabel;
+        private GMap.NET.WindowsForms.GMapControl gmapControl;
     }
 }
