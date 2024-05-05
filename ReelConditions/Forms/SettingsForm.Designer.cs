@@ -32,12 +32,12 @@
             exitButton = new Button();
             saveButton = new Button();
             temperatureUnitsGroupBox = new GroupBox();
-            metricRadioButton = new RadioButton();
-            imperialRadioButton = new RadioButton();
+            metricTemperatureRadioButton = new RadioButton();
+            imperialTemperatureRadioButton = new RadioButton();
             titleLabel = new Label();
             distanceUnitsGroupBox = new GroupBox();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
+            metricDistanceRadioButton = new RadioButton();
+            imperialDistanceUnits = new RadioButton();
             exportDataLabel = new Label();
             exportDataButton = new Button();
             temperatureUnitsGroupBox.SuspendLayout();
@@ -55,6 +55,7 @@
             exitButton.TabIndex = 3;
             exitButton.Text = "E&xit";
             exitButton.UseVisualStyleBackColor = false;
+            exitButton.Click += exitButton_Click;
             // 
             // saveButton
             // 
@@ -67,11 +68,12 @@
             saveButton.TabIndex = 4;
             saveButton.Text = "&Save";
             saveButton.UseVisualStyleBackColor = false;
+            saveButton.Click += saveButton_Click;
             // 
             // temperatureUnitsGroupBox
             // 
-            temperatureUnitsGroupBox.Controls.Add(metricRadioButton);
-            temperatureUnitsGroupBox.Controls.Add(imperialRadioButton);
+            temperatureUnitsGroupBox.Controls.Add(metricTemperatureRadioButton);
+            temperatureUnitsGroupBox.Controls.Add(imperialTemperatureRadioButton);
             temperatureUnitsGroupBox.Font = new Font("Segoe UI Light", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             temperatureUnitsGroupBox.Location = new Point(12, 72);
             temperatureUnitsGroupBox.Name = "temperatureUnitsGroupBox";
@@ -80,29 +82,29 @@
             temperatureUnitsGroupBox.TabStop = false;
             temperatureUnitsGroupBox.Text = "Temperature Units";
             // 
-            // metricRadioButton
+            // metricTemperatureRadioButton
             // 
-            metricRadioButton.AutoSize = true;
-            metricRadioButton.Font = new Font("Segoe UI", 12F);
-            metricRadioButton.Location = new Point(27, 66);
-            metricRadioButton.Name = "metricRadioButton";
-            metricRadioButton.Size = new Size(102, 25);
-            metricRadioButton.TabIndex = 9;
-            metricRadioButton.TabStop = true;
-            metricRadioButton.Text = "Metric (°C)";
-            metricRadioButton.UseVisualStyleBackColor = true;
+            metricTemperatureRadioButton.AutoSize = true;
+            metricTemperatureRadioButton.Font = new Font("Segoe UI", 12F);
+            metricTemperatureRadioButton.Location = new Point(27, 66);
+            metricTemperatureRadioButton.Name = "metricTemperatureRadioButton";
+            metricTemperatureRadioButton.Size = new Size(102, 25);
+            metricTemperatureRadioButton.TabIndex = 9;
+            metricTemperatureRadioButton.TabStop = true;
+            metricTemperatureRadioButton.Text = "Metric (°C)";
+            metricTemperatureRadioButton.UseVisualStyleBackColor = true;
             // 
-            // imperialRadioButton
+            // imperialTemperatureRadioButton
             // 
-            imperialRadioButton.AutoSize = true;
-            imperialRadioButton.Font = new Font("Segoe UI", 12F);
-            imperialRadioButton.Location = new Point(27, 35);
-            imperialRadioButton.Name = "imperialRadioButton";
-            imperialRadioButton.Size = new Size(113, 25);
-            imperialRadioButton.TabIndex = 8;
-            imperialRadioButton.TabStop = true;
-            imperialRadioButton.Text = "Imperial (°F)";
-            imperialRadioButton.UseVisualStyleBackColor = true;
+            imperialTemperatureRadioButton.AutoSize = true;
+            imperialTemperatureRadioButton.Font = new Font("Segoe UI", 12F);
+            imperialTemperatureRadioButton.Location = new Point(27, 35);
+            imperialTemperatureRadioButton.Name = "imperialTemperatureRadioButton";
+            imperialTemperatureRadioButton.Size = new Size(113, 25);
+            imperialTemperatureRadioButton.TabIndex = 8;
+            imperialTemperatureRadioButton.TabStop = true;
+            imperialTemperatureRadioButton.Text = "Imperial (°F)";
+            imperialTemperatureRadioButton.UseVisualStyleBackColor = true;
             // 
             // titleLabel
             // 
@@ -116,8 +118,8 @@
             // 
             // distanceUnitsGroupBox
             // 
-            distanceUnitsGroupBox.Controls.Add(radioButton1);
-            distanceUnitsGroupBox.Controls.Add(radioButton2);
+            distanceUnitsGroupBox.Controls.Add(metricDistanceRadioButton);
+            distanceUnitsGroupBox.Controls.Add(imperialDistanceUnits);
             distanceUnitsGroupBox.Font = new Font("Segoe UI Light", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
             distanceUnitsGroupBox.Location = new Point(247, 72);
             distanceUnitsGroupBox.Name = "distanceUnitsGroupBox";
@@ -126,29 +128,29 @@
             distanceUnitsGroupBox.TabStop = false;
             distanceUnitsGroupBox.Text = "Distance Units";
             // 
-            // radioButton1
+            // metricDistanceRadioButton
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI", 12F);
-            radioButton1.Location = new Point(27, 66);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(109, 25);
-            radioButton1.TabIndex = 9;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Metric (Km)";
-            radioButton1.UseVisualStyleBackColor = true;
+            metricDistanceRadioButton.AutoSize = true;
+            metricDistanceRadioButton.Font = new Font("Segoe UI", 12F);
+            metricDistanceRadioButton.Location = new Point(27, 66);
+            metricDistanceRadioButton.Name = "metricDistanceRadioButton";
+            metricDistanceRadioButton.Size = new Size(109, 25);
+            metricDistanceRadioButton.TabIndex = 9;
+            metricDistanceRadioButton.TabStop = true;
+            metricDistanceRadioButton.Text = "Metric (Km)";
+            metricDistanceRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // imperialDistanceUnits
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 12F);
-            radioButton2.Location = new Point(27, 35);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(117, 25);
-            radioButton2.TabIndex = 8;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Imperial (Mi)";
-            radioButton2.UseVisualStyleBackColor = true;
+            imperialDistanceUnits.AutoSize = true;
+            imperialDistanceUnits.Font = new Font("Segoe UI", 12F);
+            imperialDistanceUnits.Location = new Point(27, 35);
+            imperialDistanceUnits.Name = "imperialDistanceUnits";
+            imperialDistanceUnits.Size = new Size(117, 25);
+            imperialDistanceUnits.TabIndex = 8;
+            imperialDistanceUnits.TabStop = true;
+            imperialDistanceUnits.Text = "Imperial (Mi)";
+            imperialDistanceUnits.UseVisualStyleBackColor = true;
             // 
             // exportDataLabel
             // 
@@ -171,14 +173,15 @@
             exportDataButton.TabIndex = 11;
             exportDataButton.Text = "&Export";
             exportDataButton.UseVisualStyleBackColor = false;
+            exportDataButton.Click += exportDataButton_Click;
             // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(550, 400);
-            Controls.Add(exportDataButton);
             Controls.Add(exportDataLabel);
+            Controls.Add(exportDataButton);
             Controls.Add(distanceUnitsGroupBox);
             Controls.Add(titleLabel);
             Controls.Add(temperatureUnitsGroupBox);
@@ -205,12 +208,12 @@
         private Button exitButton;
         private Button saveButton;
         private GroupBox temperatureUnitsGroupBox;
-        private RadioButton metricRadioButton;
-        private RadioButton imperialRadioButton;
+        private RadioButton metricTemperatureRadioButton;
+        private RadioButton imperialTemperatureRadioButton;
         private Label titleLabel;
         private GroupBox distanceUnitsGroupBox;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
+        private RadioButton metricDistanceRadioButton;
+        private RadioButton imperialDistanceUnits;
         private Label exportDataLabel;
         private Button exportDataButton;
     }

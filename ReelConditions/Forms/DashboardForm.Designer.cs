@@ -41,24 +41,24 @@
             notesPanel = new Panel();
             notesTextBox = new TextBox();
             notesLabel = new Label();
-            saveButton = new Button();
+            saveNotesButton = new Button();
             fishingReportTextBox = new TextBox();
             fishingReportLabel = new Label();
+            waterConditionsLabel = new Label();
             waterConditionsTableLayoutPanel = new TableLayoutPanel();
             waterTemperatureLabel = new Label();
             waterTemperatureValueLabel = new Label();
             clarityLabel = new Label();
             clarityValueLabel = new Label();
-            waterConditionsLabel = new Label();
             weatherLabel = new Label();
             locationLabel = new Label();
             weathertableLayoutPanel = new TableLayoutPanel();
-            windValueLabel = new Label();
-            windLabel = new Label();
-            conditionsValueLabel = new Label();
-            conditionsLabel = new Label();
-            temperatureValueLabel = new Label();
             airTemperatureLabel = new Label();
+            temperatureValueLabel = new Label();
+            conditionsLabel = new Label();
+            conditionsValueLabel = new Label();
+            windLabel = new Label();
+            windValueLabel = new Label();
             mapPanel = new Panel();
             rightSideBar.SuspendLayout();
             buttonPanel.SuspendLayout();
@@ -107,6 +107,7 @@
             savedLocationsButton.TabIndex = 4;
             savedLocationsButton.Text = "Saved &Locations";
             savedLocationsButton.UseVisualStyleBackColor = false;
+            savedLocationsButton.Click += savedLocationsButton_Click;
             // 
             // searchPanel
             // 
@@ -138,6 +139,7 @@
             searchButton.TabIndex = 2;
             searchButton.Text = "S&earch";
             searchButton.UseVisualStyleBackColor = false;
+            searchButton.Click += searchButton_Click;
             // 
             // settingsButton
             // 
@@ -153,7 +155,7 @@
             settingsButton.TabIndex = 3;
             settingsButton.Text = "Se&ttings";
             settingsButton.UseVisualStyleBackColor = false;
-            settingsButton.Click += button1_Click;
+            settingsButton.Click += settingsButton_Click;
             // 
             // logoPictureBox
             // 
@@ -188,7 +190,7 @@
             // 
             notesPanel.Controls.Add(notesTextBox);
             notesPanel.Controls.Add(notesLabel);
-            notesPanel.Controls.Add(saveButton);
+            notesPanel.Controls.Add(saveNotesButton);
             notesPanel.Dock = DockStyle.Bottom;
             notesPanel.Location = new Point(0, 681);
             notesPanel.Name = "notesPanel";
@@ -215,17 +217,18 @@
             notesLabel.TabIndex = 10;
             notesLabel.Text = "Notes";
             // 
-            // saveButton
+            // saveNotesButton
             // 
-            saveButton.BackColor = Color.FromArgb(149, 187, 206);
-            saveButton.FlatStyle = FlatStyle.Flat;
-            saveButton.Font = new Font("Segoe UI Light", 14F);
-            saveButton.Location = new Point(138, 253);
-            saveButton.Name = "saveButton";
-            saveButton.Size = new Size(129, 36);
-            saveButton.TabIndex = 7;
-            saveButton.Text = "&Save";
-            saveButton.UseVisualStyleBackColor = false;
+            saveNotesButton.BackColor = Color.FromArgb(149, 187, 206);
+            saveNotesButton.FlatStyle = FlatStyle.Flat;
+            saveNotesButton.Font = new Font("Segoe UI Light", 14F);
+            saveNotesButton.Location = new Point(138, 253);
+            saveNotesButton.Name = "saveNotesButton";
+            saveNotesButton.Size = new Size(129, 36);
+            saveNotesButton.TabIndex = 7;
+            saveNotesButton.Text = "&Save Notes";
+            saveNotesButton.UseVisualStyleBackColor = false;
+            saveNotesButton.Click += saveNotesButton_Click;
             // 
             // fishingReportTextBox
             // 
@@ -247,6 +250,16 @@
             fishingReportLabel.Size = new Size(157, 32);
             fishingReportLabel.TabIndex = 9;
             fishingReportLabel.Text = "Fishing Report";
+            // 
+            // waterConditionsLabel
+            // 
+            waterConditionsLabel.AutoSize = true;
+            waterConditionsLabel.Font = new Font("Segoe UI Light", 18F);
+            waterConditionsLabel.Location = new Point(14, 216);
+            waterConditionsLabel.Name = "waterConditionsLabel";
+            waterConditionsLabel.Size = new Size(186, 32);
+            waterConditionsLabel.TabIndex = 4;
+            waterConditionsLabel.Text = "Water Conditions";
             // 
             // waterConditionsTableLayoutPanel
             // 
@@ -302,16 +315,6 @@
             clarityValueLabel.TabIndex = 3;
             clarityValueLabel.Text = "<clarity>";
             // 
-            // waterConditionsLabel
-            // 
-            waterConditionsLabel.AutoSize = true;
-            waterConditionsLabel.Font = new Font("Segoe UI Light", 18F);
-            waterConditionsLabel.Location = new Point(14, 216);
-            waterConditionsLabel.Name = "waterConditionsLabel";
-            waterConditionsLabel.Size = new Size(186, 32);
-            waterConditionsLabel.TabIndex = 4;
-            waterConditionsLabel.Text = "Water Conditions";
-            // 
             // weatherLabel
             // 
             weatherLabel.AutoSize = true;
@@ -353,41 +356,14 @@
             weathertableLayoutPanel.Size = new Size(265, 66);
             weathertableLayoutPanel.TabIndex = 1;
             // 
-            // windValueLabel
+            // airTemperatureLabel
             // 
-            windValueLabel.AutoSize = true;
-            windValueLabel.Location = new Point(109, 44);
-            windValueLabel.Name = "windValueLabel";
-            windValueLabel.Size = new Size(66, 21);
-            windValueLabel.TabIndex = 5;
-            windValueLabel.Text = "<wind>";
-            // 
-            // windLabel
-            // 
-            windLabel.AutoSize = true;
-            windLabel.Location = new Point(3, 44);
-            windLabel.Name = "windLabel";
-            windLabel.Size = new Size(50, 21);
-            windLabel.TabIndex = 4;
-            windLabel.Text = "Wind:";
-            // 
-            // conditionsValueLabel
-            // 
-            conditionsValueLabel.AutoSize = true;
-            conditionsValueLabel.Location = new Point(109, 22);
-            conditionsValueLabel.Name = "conditionsValueLabel";
-            conditionsValueLabel.Size = new Size(104, 21);
-            conditionsValueLabel.TabIndex = 3;
-            conditionsValueLabel.Text = "<conditions>";
-            // 
-            // conditionsLabel
-            // 
-            conditionsLabel.AutoSize = true;
-            conditionsLabel.Location = new Point(3, 22);
-            conditionsLabel.Name = "conditionsLabel";
-            conditionsLabel.Size = new Size(88, 21);
-            conditionsLabel.TabIndex = 2;
-            conditionsLabel.Text = "Conditions:";
+            airTemperatureLabel.AutoSize = true;
+            airTemperatureLabel.Location = new Point(3, 0);
+            airTemperatureLabel.Name = "airTemperatureLabel";
+            airTemperatureLabel.Size = new Size(100, 21);
+            airTemperatureLabel.TabIndex = 0;
+            airTemperatureLabel.Text = "Temperature:";
             // 
             // temperatureValueLabel
             // 
@@ -398,14 +374,41 @@
             temperatureValueLabel.TabIndex = 1;
             temperatureValueLabel.Text = "<temp value>";
             // 
-            // airTemperatureLabel
+            // conditionsLabel
             // 
-            airTemperatureLabel.AutoSize = true;
-            airTemperatureLabel.Location = new Point(3, 0);
-            airTemperatureLabel.Name = "airTemperatureLabel";
-            airTemperatureLabel.Size = new Size(100, 21);
-            airTemperatureLabel.TabIndex = 0;
-            airTemperatureLabel.Text = "Temperature:";
+            conditionsLabel.AutoSize = true;
+            conditionsLabel.Location = new Point(3, 22);
+            conditionsLabel.Name = "conditionsLabel";
+            conditionsLabel.Size = new Size(88, 21);
+            conditionsLabel.TabIndex = 2;
+            conditionsLabel.Text = "Conditions:";
+            // 
+            // conditionsValueLabel
+            // 
+            conditionsValueLabel.AutoSize = true;
+            conditionsValueLabel.Location = new Point(109, 22);
+            conditionsValueLabel.Name = "conditionsValueLabel";
+            conditionsValueLabel.Size = new Size(104, 21);
+            conditionsValueLabel.TabIndex = 3;
+            conditionsValueLabel.Text = "<conditions>";
+            // 
+            // windLabel
+            // 
+            windLabel.AutoSize = true;
+            windLabel.Location = new Point(3, 44);
+            windLabel.Name = "windLabel";
+            windLabel.Size = new Size(50, 21);
+            windLabel.TabIndex = 4;
+            windLabel.Text = "Wind:";
+            // 
+            // windValueLabel
+            // 
+            windValueLabel.AutoSize = true;
+            windValueLabel.Location = new Point(109, 44);
+            windValueLabel.Name = "windValueLabel";
+            windValueLabel.Size = new Size(66, 21);
+            windValueLabel.TabIndex = 5;
+            windValueLabel.Text = "<wind>";
             // 
             // mapPanel
             // 
@@ -417,7 +420,7 @@
             // 
             // DashboardForm
             // 
-            AcceptButton = saveButton;
+            AcceptButton = saveNotesButton;
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
@@ -475,7 +478,7 @@
         private Label conditionsValueLabel;
         private Label temperatureValueLabel;
         private TextBox notesTextBox;
-        private Button saveButton;
+        private Button saveNotesButton;
         private Label notesLabel;
         private Label fishingReportLabel;
         private Panel mapPanel;
