@@ -1,0 +1,175 @@
+<!-- 
+    Auth: John O'Neal
+    Date: 05/06/2024
+    Desc: This is the main page for the Reel Conditions Web App.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <icon class="icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Reel Conditions</title>
+
+    <!-- Montserrat Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="grid-container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="menu-icon" onclick="openLeftSidebar()">
+        <span class="material-icons-outlined">menu</span>
+      </div>
+      <div class="header-left">
+        <span class="material-icons-outlined">search</span>
+        <input type="text" placeholder="Search...">
+      </div>
+      <div class="header-right">
+        <!-- content here if needed -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!--  leftSidebar -->
+    <aside id="leftSidebar">
+      <div class="left-sidebar-title">
+        <div class="left-sidebar-brand">
+          <img src="images/logo.png" alt="Logo" class="logo">
+        </div>
+        <span class="material-icons-outlined" onclick="closeLeftSidebar()">close</span>
+      </div>
+
+      <ul class="left-sidebar-list">
+        <li class="left-sidebar-list-item">
+          <a href="#" target="_blank">
+            <span class="material-icons-outlined">dashboard</span> Dashboard
+          </a>
+        </li>
+        <li class="left-sidebar-list-item">
+          <a href="#" target="_blank">
+            <span class="material-icons-outlined">location_on</span> Saved Locations
+          </a>
+        </li>
+        <li class="left-sidebar-list-item">
+          <a href="#" target="_blank">
+            <span class="material-icons-outlined">settings</span> Settings
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End  leftSidebar -->
+
+    <!-- rightSidebar -->
+    <aside id="rightSidebar">
+      <div class="right-sidebar-title">
+        <h1>Location</h1>
+        <h2>Time</h2>
+      </div>
+      <div class="weather-data">
+        <h3>Weather</h3>
+        <table>
+          <tr>
+            <td>Temperature:</td>
+            <td><span id="temperatureValueLabel">
+                -temperature-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Conditions:</td>
+            <td><span id="conditionsValueLabel">
+                -conditions-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Wind Speed:</td>
+            <td><span id="windSpeedValueLabel">
+                -wind speed-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Wind Direction:</td>
+            <td><span id="windDirectionValueLabel">
+                -wind direction-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Humidity:</td>
+            <td><span id="humidityValueLabel">
+                -humidity-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Pressure:</td>
+            <td><span id="pressureValueLabel">
+                -pressure-
+              </span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="water-data">
+        <h3>Water Conditions</h3>
+        <table>
+          <tr>
+            <td>Temperature:</td>
+            <td><span id="waterTemperatureValueLabel">
+                -temperature-
+              </span></td>
+          </tr>
+          <tr>
+            <td>Clarity:</td>
+            <td><span id="clarityValueLabel">
+                -clarity-
+              </span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="fishing-report">
+        <h3>Fishing Report</h3>
+        <p><span class="fishing-report-text-box">
+            -fishing report-
+          </span></p>
+      </div>
+
+      <div class="notes">
+        <h3>Notes</h3>
+        <textarea id="notesTextBox" rows="4" cols="30" disabled></textarea>
+        <button id="saveNotesButton">Save Notes</button>
+      </div>
+    </aside>
+    <!-- End rightSidebar -->
+
+    <!-- Main -->
+    <div class="map-container">
+      <div id="map">
+        <!-- Map goes here -->
+        <!-- placeholder -->
+        <img src="images/logo.png" alt="Map" class="map-image">
+      </div>
+      </main>
+      <!-- End Main -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>All rights reserved</p>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Scripts -->
+    <script src="js/scripts.js"></script>
+</body>
+</html>
