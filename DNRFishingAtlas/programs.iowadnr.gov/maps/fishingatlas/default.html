@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-US">
+
+<!-- Mirrored from programs.iowadnr.gov/maps/fishingatlas/default.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 May 2024 02:13:26 GMT -->
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="initial-scale=1, maximum-scale=1,user-scalable=no" name="viewport" />
+	<title>Reel Conditions</title>
+	<link href="../../../js.arcgis.com/3.23/dijit/themes/nihilo/nihilo.css" rel="stylesheet" />
+	<link href="../../../js.arcgis.com/3.23/esri/css/esri.css" rel="stylesheet" />
+	<link href="../../../js.arcgis.com/3.23/dojox/layout/resources/FloatingPane.css" rel="stylesheet" type="text/css" />
+	<link href="../../../js.arcgis.com/3.23/dojox/layout/resources/ExpandoPane.css" rel="stylesheet" type="text/css" />
+	<link href="../../../js.arcgis.com/3.23/dojox/grid/resources/Grid.css" rel="stylesheet" type="text/css" />
+	<link href="../../../js.arcgis.com/3.23/dojox/grid/resources/nihiloGrid.css" rel="stylesheet" type="text/css" />
+	<!-- Proj4 is used for the log/lat calculations -->
+	<script src="../apis/proj4js/lib/proj4js-compressed.js" type="text/javascript"></script>
+	<script src="../apis/proj4js/lib/defs/EPSG4326.js" type="text/javascript"></script>
+	<script src="../apis/proj4js/lib/defs/EPSG102100.js" type="text/javascript"></script>
+	<script src="../apis/proj4js/lib/defs/EPSG26915.js" type="text/javascript"></script>
+	<!-- Script to make saveable locations? Not sure how it works, because there is no way to save? -->
+	<script src="js/gov/iowadnr/compactmap/webmercatorbookmarks.js" type="text/javascript"></script>
+	<!-- Script to generate basemaps -->
+	<script src="js/gov/iowadnr/compactmap/AGOLBasemaps.js" type="text/javascript"></script>
+
+	<style>
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.esriAttribution {
+			display: none !important;
+		}
+
+		#footer {
+			margin: 0px 0px;
+		}
+	</style>
+
+	<script type="text/javascript">
+		var djConfig = {
+			parseOnLoad: true,
+			packages: [{
+				"name": "agsjs",
+				"location": location.pathname.replace(/\/[^/]+$/, '') + '/js/gov/iowadnr/compactmap/dijits/agsjs'
+			},
+			{
+				"name": "iowadnr",
+				"location": location.pathname.replace(/\/[^/]+$/, '') + '/js/gov/iowadnr/compactmap/iowadnr'
+			}
+
+			]
+		};
+	</script>
+
+	<script src="https://js.arcgis.com/3.23/"></script>
+	<script type="text/javascript">
+		dojo.require("dijit.dijit");
+		dojo.require("esri.map");
+		dojo.require("esri.dijit.Scalebar");
+		dojo.require("esri.dijit.Popup");
+		dojo.require("esri.tasks.locator");
+		dojo.require("esri.tasks.find");
+		dojo.require("esri.tasks.identify");
+		dojo.require("dojo.number");
+		dojo.require("esri.layers.FeatureLayer");
+		dojo.require("esri.layers.agsdynamic");
+		dojo.require("esri.layers.LabelLayer");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.TitlePane");
+		dojo.require("dijit.layout.AccordionContainer");
+		dojo.require("dojox.layout.ExpandoPane");
+		dojo.require("dojox.layout.FloatingPane");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("esri.dijit.Bookmarks");
+		dojo.require("esri.dijit.BasemapGallery");
+		dojo.require("esri.dijit.Legend");
+		dojo.require("esri.dijit.Measurement");
+		dojo.require("esri.arcgis.utils");
+		dojo.require("dijit.Tooltip");
+		dojo.require("dijit.Dialog");
+		dojo.require("dijit.form.Button");
+		dojo.require("dijit.form.Slider");
+		dojo.require("dijit.form.Textarea");
+		dojo.require("dijit.form.CheckBox");
+		dojo.require("dijit.form.TextBox");
+		dojo.require("dijit.form.ValidationTextBox");
+		dojo.require("dijit.form.Select");
+		dojo.require("dijit.Menu");
+		dojo.require("dojox.grid.DataGrid");
+		dojo.require("dojo.data.ItemFileReadStore");
+		//dojo.require("dijit.Tooltip");
+		dojo.require("dojo.fx.easing");
+		dojo.require("dojo.cookie");
+		dojo.require("dojo.DeferredList");
+		dojo.require("agsjs.dijit.TOC");
+	</script>
+	<script src="js/gov/iowadnr/compactmap/dnrcommon.js" type="text/javascript"></script>
+	<style type="text/css">
+		@import "js/gov/iowadnr/compactmap/css/dnrtheme.css";
+
+		.dijitTabContainerTopChildWrapper.dijitVisible {
+			overflow-y: auto;
+		}
+
+		.dojoxGridMasterHeader {
+			display: none !important;
+		}
+
+		.nihilo .dojoxGrid {
+			font-size: 0.75em;
+		}
+	</style>
+
+	<!-- Moved the main js functions to a new file to separate -->
+	<script src="main.js"></script>
+
+</head>
+
+<body class="nihilo">
+	<div id="main" style="height:95%">
+		<div class="dijitHidden">
+			<div data-dojo-props="title:'Iowa Department of Natural Resources',href:'splash.html',loadingMessage:'loading map...'"
+				data-dojo-type="dijit.Dialog" id="splash"></div>
+		</div>
+		<div data-dojo-props="design:'headline',gutters:false" data-dojo-type="dijit.layout.BorderContainer"
+			id="mainWindow" style="width: 100%; height: 100%; margin: 0;">
+			<div data-dojo-props="region:'top'" data-dojo-type="dijit.layout.ContentPane" id="header">
+				<div id="heading">
+					<a href="https://www.iowadnr.gov/" id="idnr_logo_link" title="Iowa Department of Natural Resources">
+						<img alt="Iowa Department of Natural Resources" id="idnr_logo"
+							src="../apis/idnr/js/gov/iowadnr/compactmap/images/logo_brown.png"
+							style="border-width:0px;" /></a>
+				</div>
+				<div id="headtitle">Fishing Atlas</div>
+				<div id="header-toolbar"> </div>
+			</div>
+			<div data-dojo-props="region:'left'" data-dojo-type="dojox.layout.ExpandoPane" id="leftPane" maxwidth="250"
+				style="width:250px;">
+				<div data-dojo-props="attachParent:true,useMenu:false,tabStrip:false,useSlider:false,minSize:25"
+					data-dojo-type="dijit.layout.TabContainer" id="tabContainer">
+					<div data-dojo-props="title:'Search'" data-dojo-type="dijit.layout.ContentPane" id="searchTab"
+						style="overflow-x: hidden; overflow-y:auto">
+						<div id="search-pane" style="overflow-x: hidden; overflow-y:auto">
+							<label for="lake-search" style="display:none">lake-search</label>
+							<div class="customsearch-intab" id="lake-search">
+								<label for="search-lake-text" style="display:none">search-lake-text</label>
+								<input class="customsearchinput" id="search-lake-text" placeholder="Search By Lake Name"
+									style="width: 200px;" type="text" value="Search By Lake Name" />
+								<label for="search-lake-button" style="display:none">search-lake-button</label>
+								<input class="customsearchbutton" id="search-lake-button"
+									src="js/gov/iowadnr/compactmap/images/searchicon.png" alt="search custom"
+									type="image" />
+							</div>
+							<div id="search-results-intab"></div>
+						</div>
+					</div>
+					<!-- <div data-dojo-type="dijit.layout.ContentPane" id="legendPane" data-dojo-props="title:'Legend'">
+	          <div id="legendDiv"></div>
+	          </div>
+	          <div data-dojo-type="dijit.layout.ContentPane" id ="layersTab" data-dojo-props="title:'Map layers'">
+					<div id="tocDiv"></div>
+	          </div> -->
+				</div>
+			</div>
+			<div class="shadow" data-dojo-props="region:'center'" data-dojo-type="dijit.layout.ContentPane" id="map">
+				<div id="ds">
+					<div id="ds-h">
+						<div class="ds h1 o1"></div>
+						<div class="ds h2 o2"></div>
+						<div class="ds h3 o3"></div>
+						<div class="ds h4 o4"></div>
+						<div class="ds h5 o5"></div>
+					</div>
+					<div id="ds-l">
+						<div class="ds v1 o1"></div>
+						<div class="ds v2 o2"></div>
+						<div class="ds v3 o3"></div>
+						<div class="ds v4 o4"></div>
+						<div class="ds v5 o5"></div>
+					</div>
+				</div>
+				<div id="measurePane">
+					<div id="measurementDiv"> </div>
+				</div>
+			</div>
+			<div data-dojo-props="region:'bottom'" data-dojo-type="dijit.layout.ContentPane" id="footer">
+				<div id="footer-toolbar">
+					<div id="address-search">
+						<label for="address" style="display:none">address</label>
+						<input class="searchinput" id="address" placeholder="502 E. 9th St, Des Moines, IA 50319"
+							type="text" />
+						<label for="search-address" style="display:none">search-address</label>
+						<input class="searchbutton" id="search-address"
+							src="../apis/idnr/js/gov/iowadnr/compactmap/images/blank.gif" alt="search address"
+							type="image" />
+						<div data-dojo-props="connectId:'address',position:['above']" data-dojo-type="dijit.Tooltip"
+							style="display: none;">
+							<table cellpadding="2" width="280">
+								<caption><b>Address Search</b></caption>
+								<tr>
+									<td><i>Example</i></td>
+									<td><i>502 E. 9th St, Des Moines, IA 50319</i></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="plss-search">
+						<label for="plss" style="display:none">plss</label>
+						<input class="searchinput" id="plss" placeholder="T95NR45W02" type="text" />
+						<input class="searchbutton" id="search-plss"
+							src="../apis/idnr/js/gov/iowadnr/compactmap/images/blank.gif" alt="search plss"
+							type="image" />
+						<div data-dojo-props="connectId:'plss',position:['above']" data-dojo-type="dijit.Tooltip"
+							style="display: none;">
+							<table cellpadding="2" width="225">
+								<caption><b>Township-Range-Section Search</b></caption>
+								<tr>
+									<td>Township</td>
+									<td><b>T</b>65 - 100<b>N</b></td>
+								</tr>
+								<tr>
+									<td>Range</td>
+									<td><b>R</b>01 - 07<b>E</b></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><b>R</b>01 - 49<b>W</b></td>
+								</tr>
+								<tr>
+									<td>Section</td>
+									<td>01 - 36</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td><i>Example</i></td>
+									<td><i>T84NR03E02</i></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div id="footercoords">
+						<div class="coords">UTM Zone 15 NAD83<div id="divMapCoords">x,y</div>
+						</div>
+						<div class="coords">WGS84<div id="divTransformedCoords">x,y</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<!-- Mirrored from programs.iowadnr.gov/maps/fishingatlas/default.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 May 2024 02:13:52 GMT -->
+
+</html>
