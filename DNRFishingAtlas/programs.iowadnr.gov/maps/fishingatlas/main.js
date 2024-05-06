@@ -1,3 +1,7 @@
+// Auth: Editied by John O'Neal
+// Date: 05/06/2024
+// Desc: This is the main javascript file for the Iowa DNR Fishing Atlas. It was extracted from default.html and has been edited for the purpose of this project.
+
 var app = {};
 app.maplayers = [];
 var urlParams = dojo.queryToObject(window.location.search.slice(1));
@@ -12,8 +16,6 @@ var plssServiceUrl = "https://programs.iowadnr.gov/geospatial/rest/services/tool
 var locatorServiceUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 var geometryServiceUrl = "https://programs.iowadnr.gov/geospatial/rest/services/Geometry/GeometryServer";
 var lakeSearchServiceURL = "https://programs.iowadnr.gov/geospatial/rest/services/Recreation/Fishing/MapServer";
-
-
 var zoompt;
 var zoom;
 var default_basemap = "bmGray"; //bmRoads bmAerial bmHybrid bmGray bmTopo bmOSM
@@ -178,7 +180,6 @@ var CONFIG = [
                     "yoffset": 0
                 }
             },
-
             ]
         }
     },
@@ -191,8 +192,8 @@ var CONFIG = [
         filterexpression: "Type <> 'Fish Attractor'",
         hovertemplate: { title: "<strong>${Name}</strong>", content: "${Type}<br>lat:${lat} long:${long}<br>UTM_X:${UTM_X} UTM_Y:${UTM_Y}" },
         renderer: {}
-    }
-    , {
+    },
+    {
         serviceurl: "https://programs.iowadnr.gov/geospatial/rest/services/Recreation/Fishing/MapServer/0",
         servicetype: "feature",
         options: {},
@@ -242,12 +243,13 @@ function init() {
     if (urlParams['loc'] || urlParams['trs']) {
         zoompt, zoom, default_basemap, trs = getURLParamValues(urlParams);
     }
+
     initialExtent = new esri.geometry.Extent({ "xmin": -11046697, "ymin": 4659284, "xmax": -9788237, "ymax": 5602211, "spatialReference": { "wkid": 102100 } });
 
     initPlssSearchParams(plssServiceUrl, mapSpatialReference);
     initLakeSearchParams(lakeSearchServiceURL, mapSpatialReference, [2]);
 
-    ///Create layers and then load....move above map declaration
+    //Create layers and then load....move above map declaration
     for (lyr in CONFIG) {
         props = CONFIG[lyr];
         switch (props.servicetype) {
@@ -286,6 +288,7 @@ function init() {
                 break;
         }
     };
+
     //map.addLayer(labels);
     map = new esri.Map("map", {
         basemap: "satellite",
@@ -295,6 +298,7 @@ function init() {
         extent: initialExtent
         //slider: true
     });
+
     map.addLayers(app.maplayers);
     var infoTemplate = new esri.InfoTemplate("${NAME}", "${*}");
     map.infoWindow.resize(245, 125);
@@ -311,7 +315,6 @@ function init() {
 
     dojo.connect(map, "onMouseMove", showCoordinates);
     dojo.connect(map, "onMouseDrag", showCoordinates);
-    // });
 
     createBasemapGallery(default_basemap);
 
@@ -321,6 +324,7 @@ function init() {
             attachTo: "bottom-right"
         });
     }
+
     locator = new esri.tasks.Locator(locatorServiceUrl);
     dojo.connect(locator, "onAddressToLocationsComplete", showGeocodeResults);
 
@@ -328,6 +332,7 @@ function init() {
     dojo.connect(dojo.byId('search-address'), 'onclick', function () {
         locateAddress();
     });
+
     //Address Search, Enter Key
     dojo.connect(dojo.byId('address'), 'onkeydown', function (e) {
         if (e.keyCode === 13) {
@@ -370,6 +375,7 @@ function genericHoverTip(evt) {
         content: popupcontent,
         style: "position: absolute; width: 250px; font: normal normal normal 10pt Verdana;z-index:100;background:white;"
     });
+
     dialog.startup();
     dialog.setContent(popupcontent);
     dojo.style(dialog.domNode, "opacity", 0.90);
@@ -523,7 +529,7 @@ function showPlssResults(results) {
                     graphic.setSymbol(polygonSymbol);
                     break;
             }
-
+            
             map.graphics.add(graphic);
         });
         map.setExtent(esri.graphicsExtent(map.graphics.graphics).expand(1.5));
@@ -531,6 +537,7 @@ function showPlssResults(results) {
         alert("No location found");
     };
 };
+
 function showAreaNameResults(results) {
     //console.log(results)
     if (results.length > 0) {
@@ -541,7 +548,6 @@ function showAreaNameResults(results) {
             map.graphics.add(graphic);
             return item.feature.attributes;
         });
-
 
         var griddata = {
             items: items
@@ -837,18 +843,6 @@ function toggleSearch() {
     }
 }
 
-function toggleMail() {
-    baseurl = "https://" + window.location.hostname + ":" + window.location.port + window.location.pathname;
-    tpt = transformCoordinate('EPSG:26915', 'EPSG:4326', map.extent.getCenter().x, map.extent.getCenter().y);
-    loc = tpt.x.toFixed(6) + "," + tpt.y.toFixed(6);
-    zoom = map.getLevel();
-    selected_basemap = basemap_gallery.getSelected().id;
-    baseurl += "%3Floc=" + loc;
-    baseurl += "%26z=" + zoom;
-    baseurl += "%26b=" + selected_basemap;
-    window.location = "mailto:?subject=An Iowa DNR Map you might like&body=" + baseurl;
-}
-
 function createBasemapGallery(default_basemap) {
     basemap_gallery = createWebMercatorGallery();
     //basemap_gallery.startup();
@@ -856,26 +850,25 @@ function createBasemapGallery(default_basemap) {
         dojo.disconnect(selectionHandler);
         map.addLayers(maplayers.reverse());
     });
-
-    //FORCE selectionChange to add layers, API throws an error since we are using all Bing Maps otherwise.
-    //dijit.byId(basemap_gallery.id).onSelectionChange();
-
 }
+
 function showSplash() {
     dijit.byId("splash").show();
 }
+
 function hideSplash() {
     dijit.byId("splash").hide();
 }
+
 function enablePopups() {
     if (clickListener) {
         clickHandler = dojo.connect(map, "onClick", clickListener);
     }
 }
+
 function disablePopups() {
     if (clickHandler) {
         dojo.disconnect(clickHandler);
-        //clickHandler = null;
     }
 }
 
@@ -896,14 +889,17 @@ function toggleMeasure() {
         }
     }
 }
+
 function sortAscending(property) {
     return function (a, b) {
         return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
     }
 }
+
 function sortDescending(property) {
     return function (a, b) {
         return (a[property] > b[property]) ? -1 : (a[property] < b[property]) ? 1 : 0;
     }
 }
+
 dojo.addOnLoad(init);
