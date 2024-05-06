@@ -13,9 +13,7 @@ namespace ReelConditions.Forms
         private WeatherData currentWeatherData;
 
         private const string ApiKey = "ede1c07826fd5a930a9584f681af8618";
-        private const string BaseWeatherUrl = "http://api.openweathermap.org/data/2.5/weather";
-        private const string BaseForecastUrl = "http://api.openweathermap.org/data/2.5/forecast";
-        private const string BaseGeoUrl = "https://api.openweathermap.org/geo/1.0/direct";
+        private const string BaseUrl = "http://api.openweathermap.org/data/2.5/weather";
 
         public DashboardForm()
         {
@@ -107,7 +105,7 @@ namespace ReelConditions.Forms
                 using (HttpClient client = new HttpClient())
                 {
                     // By default, the units are imperial
-                    string url = $"{BaseWeatherUrl}?q={location}&appid={ApiKey}&units=imperial";
+                    string url = $"{BaseUrl}?q={location}&appid={ApiKey}&units=imperial";
                     HttpResponseMessage response = await client.GetAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
@@ -142,20 +140,12 @@ namespace ReelConditions.Forms
         private void UpdateUI(WeatherData weatherData)
         {
             locationLabel.Text = weatherData.Name;
-            timeLabel.Text = GetCurrentDateTime(); // Get the current date and time, Not using the dt property from the JSON response
             conditionsValueLabel.Text = weatherData.Weather[0].Main + " - " + weatherData.Weather[0].Description;
             temperatureValueLabel.Text = GetConvertedTemperature(weatherData.Main.Temp).ToString() + " " + GetTemperatureLabel();
             windSpeedValueLabel.Text = GetConvertedDistance(weatherData.Wind.Speed).ToString() + " " + GetSpeedLabel();
             windDirectionValueLabel.Text = weatherData.Wind.Dir;
             humidityValueLabel.Text = weatherData.Main.Humidity.ToString() + " %";
             pressureValueLabel.Text = GetConvertedPressure(weatherData.Main.Pressure).ToString() + " " + GetPressureLabel();
-        }
-
-        private string GetCurrentDateTime()
-        {
-            // The dt property in the JSON response is a Unix timestamp, but it is inaccurate
-            DateTime currentDateTime = DateTime.Now;
-            return currentDateTime.ToString("dddd, MMMM dd, yyyy h:mm tt");
         }
 
         private float GetConvertedTemperature(float temperature)

@@ -38,7 +38,6 @@
             settingsButton = new Button();
             logoPictureBox = new PictureBox();
             leftSidebarPanel = new Panel();
-            timeLabel = new Label();
             notesPanel = new Panel();
             notesTextBox = new TextBox();
             notesLabel = new Label();
@@ -181,7 +180,6 @@
             // leftSidebarPanel
             // 
             leftSidebarPanel.BackColor = Color.FromArgb(229, 229, 229);
-            leftSidebarPanel.Controls.Add(timeLabel);
             leftSidebarPanel.Controls.Add(notesPanel);
             leftSidebarPanel.Controls.Add(fishingReportTextBox);
             leftSidebarPanel.Controls.Add(fishingReportLabel);
@@ -196,26 +194,15 @@
             leftSidebarPanel.Size = new Size(296, 749);
             leftSidebarPanel.TabIndex = 1;
             // 
-            // timeLabel
-            // 
-            timeLabel.Dock = DockStyle.Top;
-            timeLabel.Font = new Font("Segoe UI Light", 12F);
-            timeLabel.Location = new Point(0, 50);
-            timeLabel.Name = "timeLabel";
-            timeLabel.Size = new Size(296, 30);
-            timeLabel.TabIndex = 12;
-            timeLabel.Text = "<time>";
-            timeLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // notesPanel
             // 
             notesPanel.Controls.Add(notesTextBox);
             notesPanel.Controls.Add(notesLabel);
             notesPanel.Controls.Add(saveNotesButton);
             notesPanel.Dock = DockStyle.Bottom;
-            notesPanel.Location = new Point(0, 540);
+            notesPanel.Location = new Point(0, 489);
             notesPanel.Name = "notesPanel";
-            notesPanel.Size = new Size(296, 209);
+            notesPanel.Size = new Size(296, 260);
             notesPanel.TabIndex = 0;
             // 
             // notesTextBox
@@ -243,7 +230,7 @@
             saveNotesButton.BackColor = Color.FromArgb(149, 187, 206);
             saveNotesButton.FlatStyle = FlatStyle.Flat;
             saveNotesButton.Font = new Font("Segoe UI Light", 14F);
-            saveNotesButton.Location = new Point(152, 161);
+            saveNotesButton.Location = new Point(142, 208);
             saveNotesButton.Name = "saveNotesButton";
             saveNotesButton.Size = new Size(129, 36);
             saveNotesButton.TabIndex = 0;
@@ -256,7 +243,7 @@
             fishingReportTextBox.BackColor = Color.White;
             fishingReportTextBox.BorderStyle = BorderStyle.FixedSingle;
             fishingReportTextBox.Enabled = false;
-            fishingReportTextBox.Location = new Point(19, 434);
+            fishingReportTextBox.Location = new Point(19, 364);
             fishingReportTextBox.Multiline = true;
             fishingReportTextBox.Name = "fishingReportTextBox";
             fishingReportTextBox.ReadOnly = true;
@@ -267,7 +254,7 @@
             // 
             fishingReportLabel.AutoSize = true;
             fishingReportLabel.Font = new Font("Segoe UI Light", 18F);
-            fishingReportLabel.Location = new Point(19, 399);
+            fishingReportLabel.Location = new Point(19, 329);
             fishingReportLabel.Name = "fishingReportLabel";
             fishingReportLabel.Size = new Size(157, 32);
             fishingReportLabel.TabIndex = 9;
@@ -277,7 +264,7 @@
             // 
             waterConditionsLabel.AutoSize = true;
             waterConditionsLabel.Font = new Font("Segoe UI Light", 18F);
-            waterConditionsLabel.Location = new Point(16, 300);
+            waterConditionsLabel.Location = new Point(16, 230);
             waterConditionsLabel.Name = "waterConditionsLabel";
             waterConditionsLabel.Size = new Size(186, 32);
             waterConditionsLabel.TabIndex = 4;
@@ -292,7 +279,7 @@
             waterConditionsTableLayoutPanel.Controls.Add(waterTemperatureValueLabel, 1, 0);
             waterConditionsTableLayoutPanel.Controls.Add(clarityLabel, 0, 1);
             waterConditionsTableLayoutPanel.Controls.Add(clarityValueLabel, 1, 1);
-            waterConditionsTableLayoutPanel.Location = new Point(16, 335);
+            waterConditionsTableLayoutPanel.Location = new Point(16, 265);
             waterConditionsTableLayoutPanel.Name = "waterConditionsTableLayoutPanel";
             waterConditionsTableLayoutPanel.RowCount = 3;
             waterConditionsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
@@ -341,7 +328,7 @@
             // 
             weatherLabel.AutoSize = true;
             weatherLabel.Font = new Font("Segoe UI Light", 18F);
-            weatherLabel.Location = new Point(16, 120);
+            weatherLabel.Location = new Point(16, 50);
             weatherLabel.Name = "weatherLabel";
             weatherLabel.Size = new Size(98, 32);
             weatherLabel.TabIndex = 3;
@@ -375,7 +362,7 @@
             weathertableLayoutPanel.Controls.Add(windSpeedValueLabel, 1, 2);
             weathertableLayoutPanel.Controls.Add(windDirectionLabel, 0, 3);
             weathertableLayoutPanel.Controls.Add(windDirectionValueLabel, 1, 3);
-            weathertableLayoutPanel.Location = new Point(16, 155);
+            weathertableLayoutPanel.Location = new Point(16, 85);
             weathertableLayoutPanel.Name = "weathertableLayoutPanel";
             weathertableLayoutPanel.RowCount = 6;
             weathertableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
@@ -509,12 +496,11 @@
             // 
             gmapControl.Bearing = 0F;
             gmapControl.CanDragMap = true;
-            gmapControl.Dock = DockStyle.Fill;
             gmapControl.EmptyTileColor = Color.Navy;
             gmapControl.GrayScaleMode = false;
             gmapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             gmapControl.LevelsKeepInMemory = 5;
-            gmapControl.Location = new Point(0, 0);
+            gmapControl.Location = new Point(0, 1);
             gmapControl.MarkersEnabled = true;
             gmapControl.MaxZoom = 2;
             gmapControl.MinZoom = 2;
@@ -528,7 +514,7 @@
             gmapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             gmapControl.SelectedAreaFillColor = Color.FromArgb(33, 65, 105, 225);
             gmapControl.ShowTileGridLines = false;
-            gmapControl.Size = new Size(831, 749);
+            gmapControl.Size = new Size(1251, 984);
             gmapControl.TabIndex = 0;
             gmapControl.Zoom = 0D;
             // 
@@ -608,6 +594,5 @@
         private Label pressureValueLabel;
         private Label pressureLabel;
         private GMap.NET.WindowsForms.GMapControl gmapControl;
-        private Label timeLabel;
     }
 }
