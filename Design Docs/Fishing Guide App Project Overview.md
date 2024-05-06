@@ -4,12 +4,12 @@
 Personal use Windows Forms desktop application to assist fishermen in planning fishing trips and catching more fish. It will enhance the client’s fishing experience by providing essential data for making informed decisions. Unlike community-oriented apps like Fishbrain, this app will focus on the user’s personal data.
 
 ### Key Features
-- **Map Search:** Interactive topographical map that can be searched for bodies of water.
-- **Geolocation-based Data:** Weather and water temperature for various bodies of water.
-- **Saved Locations:** Ability to bookmark and revisit favorite fishing spots.
-- **Marked Boat Ramps:** Boat ramps and launches should be labeled on the map.
-- **Fishing Reports:** Integration with external databases for fishing reports.
-- **Coverage:** Begin with Iowa and Minnesota regions with the ability to expand.
+1. **Map Search:** Interactive topographical map that can be searched for bodies of water.
+2. **Geolocation-based Data:** Weather and water temperature for various bodies of water.
+3. **Saved Locations:** Ability to bookmark and revisit favorite fishing spots.
+4. **Coverage:** Begin with Iowa and Minnesota regions with the ability to expand.
+5. **Marked Boat Ramps:** Boat ramps and launches should be labeled on the map.
+6. **Fishing Reports:** Integration with external databases for fishing reports.
 
 ### Must-Have Data (in order of importance)
 1. Water Temperature
