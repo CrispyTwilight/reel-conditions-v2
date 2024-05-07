@@ -11,33 +11,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <icon class="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Reel Conditions</title>
-
     <!-- Montserrat Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet">
-
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
   <div class="grid-container">
-
     <!-- Header -->
     <header class="header">
-      <div class="menu-icon" onclick="openLeftSidebar()">
+      <div class="menu-icon" id="openButton">
         <span class="material-icons-outlined">menu</span>
-      </div>
-      <div class="header-left">
-        <span class="material-icons-outlined">search</span>
-        <input type="text" placeholder="Search...">
-      </div>
-      <div class="header-right">
-        <!-- content here if needed -->
       </div>
     </header>
     <!-- End Header -->
@@ -48,35 +37,43 @@
         <div class="left-sidebar-brand">
           <img src="images/logo.png" alt="Logo" class="logo">
         </div>
-        <span class="material-icons-outlined" onclick="closeLeftSidebar()">close</span>
+        <span class="material-icons-outlined" id="leftCloseButton">close</span>
       </div>
 
-      <ul class="left-sidebar-list">
-        <li class="left-sidebar-list-item">
-          <a href="#" target="_blank">
-            <span class="material-icons-outlined">dashboard</span> Dashboard
-          </a>
-        </li>
-        <li class="left-sidebar-list-item">
-          <a href="#" target="_blank">
-            <span class="material-icons-outlined">location_on</span> Saved Locations
-          </a>
-        </li>
-        <li class="left-sidebar-list-item">
-          <a href="#" target="_blank">
-            <span class="material-icons-outlined">settings</span> Settings
-          </a>
-        </li>
-      </ul>
+      <div class="search">
+        <div id="searchBar">
+          <span class="material-icons-outlined">search</span>
+          <input id="searchInput" type="text" placeholder="City...">
+          <button id="searchButton">Search</button>
+        </div>
+      </div>
+
+      <div class="saved-loactions">
+        <div id="savedLocations">
+          <span class="material-icons-outlined" id="savedLocationsClose">location_on</span> Saved Locations
+          <div class="locations-list">
+            <select name="listLocations" id="listLocations">
+              <!-- options will be dynamically added -->
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings">
+        <div id="settingsButton">
+          <span class="material-icons-outlined">settings</span> Settings
+        </div>
+      </div>
     </aside>
     <!-- End  leftSidebar -->
 
     <!-- rightSidebar -->
     <aside id="rightSidebar">
       <div class="right-sidebar-title">
-        <h1>Location</h1>
-        <h2>Time</h2>
+        <h1 id="locationLabel">Location</h1>
+        <h2 id="timeLabel">Time</h2>
       </div>
+
       <div class="weather-data">
         <h3>Weather</h3>
         <table>
@@ -89,19 +86,13 @@
           <tr>
             <td>Conditions:</td>
             <td><span id="conditionsValueLabel">
-                -conditions-
+                -cond-
               </span></td>
           </tr>
           <tr>
-            <td>Wind Speed:</td>
-            <td><span id="windSpeedValueLabel">
-                -wind speed-
-              </span></td>
-          </tr>
-          <tr>
-            <td>Wind Direction:</td>
-            <td><span id="windDirectionValueLabel">
-                -wind direction-
+            <td>Wind:</td>
+            <td><span id="windValueLabel">
+                -wind-
               </span></td>
           </tr>
           <tr>
@@ -139,13 +130,17 @@
 
       <div class="fishing-report">
         <h3>Fishing Report</h3>
-        <p id="fishingReportTextBox"></p>
+        <textarea class="text-area" id="fishingReportTextArea" rows="5" cols="30" disabled></textarea>
       </div>
 
       <div class="notes">
         <h3>Notes</h3>
-        <textarea id="notesTextBox" rows="4" cols="30" disabled></textarea>
-        <button id="saveNotesButton">Save Notes</button>
+        <textarea class="text-area" id="notesTextArea" rows="5" cols="30"></textarea>
+        <button id="saveButton">Save Location & Notes</button>
+      </div>
+
+      <div id="unsavedDataBanner">
+        You have unsaved data. Data will stay in this browser until you clear your cache. If you want to save your data, please use the export button in the settings menu.
       </div>
     </aside>
     <!-- End rightSidebar -->
@@ -153,21 +148,36 @@
     <!-- Main -->
     <div class="map-container">
       <div id="map">
-        <!-- Map goes here -->
-        <!-- placeholder -->
-        <img src="images/logo.png" alt="Map" class="map-image">
+        <!-- Map goes here - placeholder -->
       </div>
       </main>
-      <!-- End Main -->
     </div>
+    <!-- End Main -->
 
     <!-- Footer -->
     <footer class="footer">
-      <p>All rights reserved</p>
+      <p>All rights reserved 2024</p>
     </footer>
     <!-- End Footer -->
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+      <div class="modal-content">
+        <span class="material-icons-outlined" id="modalClose">close</span>
+        <h2>Settings</h2>
+        <form>
+          <label for="imperial">Imperial</label>
+          <input type="radio" id="imperial" name="units" value="imperial" checked="true">
+          <label for="metric">Metric</label>
+          <input type="radio" id="metric" name="units" value="metric">
+        </form>
+        <button id="exportButton">Export Data</button>
+        <button id="importButton">Import Data</button>
+      </div>
+    </div>
 
     <!-- Scripts -->
     <script src="js/scripts.js"></script>
 </body>
+
 </html>

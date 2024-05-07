@@ -21,41 +21,64 @@ body {
   background-color: var(--white);
   color: var(--black);
   font-family: "Montserrat", sans-serif;
+  font-size: medium;
+  overscroll-behavior: none;
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+}
+
+button {
+  font-size: medium;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--powder-blue);
+  box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 2em;
+  margin: 5px;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 5px;
+}
+
+h3 {
+  font-size: 1.25em;
+  margin: 3px;
+}
+
+table {
+  width: 100%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+input[type="text"]:focus {
+  outline: none;
 }
 
 .material-icons-outlined {
   vertical-align: middle;
   line-height: 1px;
-}
-
-.text-primary {
-  color: #666666;
-}
-
-.text-blue {
-  color: #246dec;
-}
-
-.text-red {
-  color: #cc3c43;
-}
-
-.text-green {
-  color: #367952;
-}
-
-.text-orange {
-  color: #f5b74f;
-}
-
-.font-weight-bold {
-  font-weight: 600;
+  cursor: pointer;
+  font-size: 30px;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: 260px 1fr 260px;
-  grid-template-rows: 50px 1fr 0.05fr;
+  grid-template-columns: 280px 3fr 1fr;
+  grid-template-rows: 40px 1fr 25px;
   grid-template-areas:
     "leftSidebar header rightSidebar"
     "leftSidebar main rightSidebar"
@@ -63,19 +86,16 @@ body {
   height: 100vh;
 }
 
-
 /* ---------- HEADER ---------- */
 
 .header {
   grid-area: header;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px 0 30px;
+  padding: 20px, 0px, 20px, 0px;
+
   box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
 }
 
+/* Hide for main display */
 .menu-icon {
   display: none;
 }
@@ -84,60 +104,73 @@ body {
 
 #leftSidebar {
   grid-area: leftSidebar;
-  height: 100%;
   background-color: var(--reseda-green);
-
-  overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#leftSidebar>div {
+  padding: 20px;
 }
 
 .left-sidebar-title {
-  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px 20px 20px 20px;
-  margin-bottom: 30px;
 }
 
-.left-sidebar-title > span {
+/* Hide for main display */
+#leftCloseButton {
   display: none;
-  position: absolute;
-  top: 20px;
-  right: 10px;
+  margin:  -5px;;
 }
 
 .left-sidebar-brand img {
   width: 150px;
 }
 
-.left-sidebar-list {
-  padding: 0;
-  margin-top: 15px;
+.search input {
+  font-size: medium;
+  padding: 3px;
+  border-radius: 5px;
+  border: black 1px solid;
+}
+
+.search button {
+  display: flex;
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+#listLocations {
+  margin-top: 10px;
   list-style-type: none;
+  padding: 3px;
+  font-size: medium;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
 }
 
-.left-sidebar-list-item {
-  padding: 20px 20px 20px 20px;
+.settings {
+  padding: 15px 0px;
+  margin-top: auto;
 }
 
-.left-sidebar-list-item:hover {
+.settings:hover {
   background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
-}
-
-.left-sidebar-list-item > a {
-  text-decoration: none;
-  color: var(--black);
 }
 
 .left-sidebar-responsive {
   display: inline !important;
   position: absolute;
-  z-index: 1000;
+  z-index: 10;
 }
-.left-sidebar-responsive .left-sidebar-title > span {
+
+.left-sidebar-responsive .left-sidebar-title>span {
   display: inline;
 }
 
@@ -153,66 +186,48 @@ body {
   -webkit-transition: all 0.5s;
 }
 
+#rightSidebar>div {
+  padding: 15px;
+}
+
 .right-sidebar-title {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   text-align: center;
 }
 
-.right-sidebar-title h1,
-.right-sidebar-title h2 {
-    margin: 0;
-}
-
-.weather-data,
-.water-data,
 .fishing-report,
 .notes {
-    padding: 15px;
-}
-
-.weather-data h3,
-.water-data h3,
-.fishing-report h3,
-.notes h3 {
-    margin: 0px;
-}
-
-.weather-data table,
-.water-data table {
-    width: 100%;
-}
-
-.notes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.fishing-report {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#fishingReportTextBox {
-  border: 1px solid #000;
+.text-area {
+  width: 100%;
+  margin: 15px;
+  background-color: var(--white);
+  border-radius: 5px;
+  padding: 3px;
+  resize: vertical;
+}
+
+.text-area:focus {
+  outline: none;
+}
+
+#unsavedDataBanner {
+  display: none;
+  bottom: 0;
+  background-color: #ab544e;
+  color: white;
+  text-align: left;
   padding: 10px;
-  background-color: var(--white);
-  color: var(--black);
-  width: 100%;
-  height: 50px;
-  white-space: pre-wrap; /* Preserves line breaks and spaces */
   border-radius: 5px;
-  margin: 15px;
-}
-
-#notesTextBox {
-  width: 100%;
-  margin: 15px;
-  background-color: var(--white);
-  border-radius: 5px;
+  font-size: small;
+  margin: 20px;
 }
 
 /* ---------- MAIN ---------- */
@@ -220,23 +235,14 @@ body {
 .map-container {
   border-radius: 5px;
   box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
-  margin: 10px; /* adjust as needed */
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  background-color: var(--powder-blue);
 }
 
-#map {
-  width: 100%;
-  height: 100%;
-  contain: content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#map > * {
+#map>* {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -249,42 +255,72 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  margin-bottom: 10px;
+  font-size: smaller;
 }
 
 /* ---------- SCROLLBARS ---------- */
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 5px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #a5aaad;
-  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgb(125, 125, 125);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #4f35a1;
-  border-radius: 10px;
+  background-color: var(--caribbean-current);
+  border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a5aaad;
-} */
+/* ---------- MODALs ---------- */
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 15;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: var(--platinum);
+  margin: 15% auto;
+  padding: 20px;
+  width: 50%;
+  border-radius: 5px;
+}
+
+#modalClose {
+  float: right;
+}
+
+#importButton,
+#exportButton {
+  margin-top: 10px;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+}
 
 /* ---------- MEDIA QUERIES ---------- */
 
-/* Medium <= 992px */
-@media screen and (max-width: 992px) {
+/* Medium <= 1120px */
+@media screen and (max-width: 1120px) {
   .grid-container {
-    grid-template-columns: 1fr 260px;
-    grid-template-rows: 30px 1fr 0.02fr;
+    grid-template-columns: 1fr 250px;
+    grid-template-rows: 30px 1fr 15px;
     grid-template-areas:
-    "header rightSidebar"
-    "main rightSidebar"
-    "footer rightSidebar";
+      "header rightSidebar"
+      "main rightSidebar"
+      "footer rightSidebar";
   }
 
   #leftSidebar {
@@ -293,31 +329,6 @@ body {
 
   .menu-icon {
     display: inline;
-  }
-
-
-  .sidebar-title > span {
-    display: inline;
+    vertical-align: middle;
   }
 }
-
-/* Small <= 768px */
-/* @media screen and (max-width: 768px) {
-  .main-cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 0;
-  }
-
-  .charts {
-    grid-template-columns: 1fr;
-    margin-top: 30px;
-  }
-}
-
-/* Extra Small <= 576px */
-/* @media screen and (max-width: 576px) {
-  .header-left {
-    display: none;
-  }
-} */
